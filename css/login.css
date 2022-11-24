@@ -104,4 +104,13 @@ input[type="submit"] :hover{
     text-align: center;
     font-size: 16px;    
     color: #666666;
+    text-decoration: none;
+}
+
+.sign a{
+    text-decoration: none;
+}
+
+.sign a:hover{
+    text-decoration: underline;
 }
