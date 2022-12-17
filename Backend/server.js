@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./app/routes/auth');
 const teacherRoute = require('./app/routes/teacher');
+const adminRoute = require('./app/routes/admin');
 const Class = require('./app/models/ClassInfo');
 const Subject = require('./app/models/Subject');
 const { subjectSummary } = require("./app/controllers/teacherController");
@@ -53,6 +54,7 @@ subjectCount();
 //Set up route
 app.use('/auth', authRoute);
 app.use('/teacher', teacherRoute);
+app.use('/admin',adminRoute);
 
 
 //Connect to database (Phat's database)
