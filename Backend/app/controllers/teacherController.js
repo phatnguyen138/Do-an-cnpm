@@ -40,12 +40,30 @@ const teacherController = {
     },
     studentSearch: async(req,res) => {
         try{
-            chosenClass = await Class.findOne({className: req.body.className });
+            const chosenClass = await Class.findOne({className: req.body.className })
+                                        .populate("studentList");
             if(!chosenClass){
-                return res.status(404).json('Class name is wrong');
+                return res.status(404).json(chosenClass);
+            };
+            const subjectCount = await Subject.countDocuments({});
+            const studentList = chosenClass.studentList;
+            let idList = [];
+            for await (const element of studentList){
+                idList.push(element._id);
             }
-            res.status(200).json(chosenClass.studentList)
-        }catch{
+            const gradeList = Student.find({id: {"$in" : ["idList"]}}).populate("grade");
+            (await gradeList).forEach((element)=>{
+                var first = 0;
+                var second = 0;
+                // for await (const mark of element.grade){
+                //     if(mark.term == true){
+                //         await;
+                //     }
+                // }
+
+            })
+            res.status(200).json(studentList);
+        }catch(err){
             res.status(500).json(err);
         }
     },

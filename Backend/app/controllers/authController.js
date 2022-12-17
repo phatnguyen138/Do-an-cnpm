@@ -73,7 +73,8 @@ const authController = {
 
                 return res.status(200).json({
                     accesToken: accesToken,
-                    refreshToken: refreshToken
+                    refreshToken: refreshToken,
+                    role: user.role,
                 });
             }
         

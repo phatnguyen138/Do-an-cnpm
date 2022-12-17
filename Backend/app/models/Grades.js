@@ -24,6 +24,10 @@ const gradeSchema = new mongoose.Schema({
     studentID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Student"
+    },
+    final: {
+        type: Number,
+        default: 0
     }
 })
 

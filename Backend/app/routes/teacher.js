@@ -8,6 +8,9 @@ router.post('/tiep-nhan', middleController.verifyTeacher, teacherController.sign
 router.get('/lap-danh-sach',middleController.availableStudents);
 router.post('/lap-danh-sach', middleController.verifyTeacher, teacherController.classListAssign);
 
+router.post('/tra-cuu', middleController.verifyTeacher,teacherController.studentSearch);
+
+
 router.post('/cap-nhat-diem', middleController.verifyTeacher);
 
 router.post('/tong-ket-mon',middleController.verifyTeacher);

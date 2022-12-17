@@ -19,6 +19,14 @@ const studentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Grade',
         default: null,
+    },
+    firstTerm: {
+        type: Number,
+        default: 0,
+    },
+    secondTerm: {
+        type: Number,
+        default: 0
     }
 })
 
