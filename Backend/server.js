@@ -1,85 +1,46 @@
 const express = require("express");
 const cors = require("cors");
-const dbConfig = require("./app/config/db.config");
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const authRoute = require('./app/routes/auth');
+const teacherRoute = require('./app/routes/teacher');
+const Class = require('./app/models/ClassInfo');
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+//Set up env file for private data
+dotenv.config()
 
-const db = require("./app/models");
-const Role = db.role;
-
-db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Successfully connect to MongoDB.");
-    initial();
-  })
-  .catch(err => {
-    console.error("Connection error", err);
-    process.exit();
+//Set up class name
+const checkList = Class.find({});
+if(checkList.size() <= 1){
+  const nameList = ['10A1','10A2','10A3','10A4','11A1','11A2','11A3','11A4','12A1','12A2','12A3','12A4'];
+  nameList.forEach(async(element) => {
+    let newClass = new Class({
+      className: element,
+    })
+    const class1 = await newClass.save();
   });
+}
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
 
-// routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+//Set up route
+app.use('/auth', authRoute);
+app.use('/teacher', teacherRoute);
+
+
+//Connect to database (Phat's database)
+// Collect with mongo atlas by MONGODB_URL in .env file
+mongoose.connect(process.env.MONGODB_URL,()=>{
+    console.log('Connected to database')
+})
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      new Role({
-        name: "user"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'user' to roles collection");
-      });
-
-      new Role({
-        name: "moderator"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'moderator' to roles collection");
-      });
-
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
-}
