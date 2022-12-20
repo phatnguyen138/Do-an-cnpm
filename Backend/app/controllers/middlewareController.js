@@ -16,6 +16,17 @@ const middleController = {
             res.status(401).json('Not sign in')
         }
     },
+    verifyAdmin: (req,res,next) => {
+        const token = req.headers.token;
+        if(token){
+            const accesToken = token.split(' ')[1];
+            const decode = jwt.verify(accesToken,process.env.SECRET_KEY);
+            res.status(decode)
+            next()
+        }else{
+            res.status(401).json('Not sign in')
+        }
+    },
     availableStudents: async(req,res) => {
         try{
             req;

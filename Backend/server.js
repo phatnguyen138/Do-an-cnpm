@@ -4,8 +4,10 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./app/routes/auth');
 const teacherRoute = require('./app/routes/teacher');
+const adminRoute = require('./app/routes/admin');
 const Class = require('./app/models/ClassInfo');
 const Subject = require('./app/models/Subject');
+const Rule = require('./app/models/Rules');
 const { subjectSummary } = require("./app/controllers/teacherController");
 const { collection } = require("./app/models/Student");
 
@@ -35,11 +37,11 @@ classCount = async() => {
 classCount();
 
 
-//Set up class name
+//Set up subject name
 subjectCount = async() => {
   const count =  await Subject.countDocuments({}).exec();
   if(count <= 1){
-    const nameList = ['Math','Literature','English'];
+    const nameList = ['Toán','Lý','Hóa','Sinh','Sử','Địa','Văn','Đạo đức','Thể Dục'];
     nameList.forEach(async(element) => {
       let newClass = new Subject({
         name: element,
@@ -50,9 +52,21 @@ subjectCount = async() => {
 }
 subjectCount();
 
+//Set up rules
+ruleAssign = async() => {
+  const count =  await Rule.countDocuments({}).exec();
+  if(count < 1){
+    const newRule = new Rule();
+    await newRule.save();
+  };
+};
+ruleAssign();
+
+
 //Set up route
 app.use('/auth', authRoute);
 app.use('/teacher', teacherRoute);
+app.use('/admin', adminRoute);
 
 
 //Connect to database (Phat's database)
