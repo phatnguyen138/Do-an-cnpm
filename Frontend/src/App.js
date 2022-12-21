@@ -12,10 +12,15 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+import  Rule from "./components/Rule.component";
+
 import Logo from "./pictures/logout.png"
 
-// import AuthVerify from "./common/auth-verify";
+import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+
+//Side bar
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 class App extends Component {
   constructor(props) {
@@ -62,15 +67,22 @@ class App extends Component {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
     return (
+      <ProSidebarProvider>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple"/>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <nav className="cardnav navbar navbar-expand-lg navbar-light  container-fluid">
           <Link to={"/"} className="navbar-brand">
             HCMUS
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"/home"} className="nav-link font">
                 Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/admin"} className="nav-link font">
+                Admin
               </Link>
             </li>
 
@@ -99,7 +111,7 @@ class App extends Component {
             )}
           </div>
 
-          {currentUser ? (
+          {currentUser ? (  
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
@@ -115,14 +127,14 @@ class App extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={"auth/login"} className="nav-link">
                   Login
                 </Link>
                 
               </li>
 
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
+                <Link to={"auth/register"} className="nav-link">
                   Sign Up
                 </Link>
               </li>
@@ -131,20 +143,25 @@ class App extends Component {
         </nav>
 
         <div className="container mt-3 ">
+        
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
+            <Route path="/age" element={<Rule />} />
           </Routes>
+          
         </div>
+        
 
-        {/* <AuthVerify logOut={this.logOut}/> */}
+        <AuthVerify logOut={this.logOut}/>
       </div>
+      </ProSidebarProvider>
     );
   }
 }

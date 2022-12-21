@@ -17,11 +17,13 @@ const authController = {
                 password: hashed,
                 role: req.body.role
             });
+            console.log("Sigup success")
 
             const user = await newUser.save();
             res.status(200).json(user)
         }
         catch(err){
+            console.log("Sigup fail")
             res.status(500).json(err)
         }
     },

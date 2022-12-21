@@ -105,6 +105,7 @@ export default class Register extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
+            console.log("send inf signup success")
             AuthService.register(
                 this.state.username,
                 this.state.email,
@@ -112,10 +113,13 @@ export default class Register extends Component {
                 this.state.role
             ).then(
                 (response) => {
+                    
                     this.setState({
                         message: response.data.message,
                         successful: true,
                     });
+                    
+                    
                 },
                 (error) => {
                     const resMessage =

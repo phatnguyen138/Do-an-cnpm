@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
+import Sidebar from "./Sidebar";
 
 export default class BoardAdmin extends Component {
   constructor(props) {
@@ -39,8 +40,9 @@ export default class BoardAdmin extends Component {
   render() {
     return (
       <div className="container">
+        <Sidebar/>
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>Thay đổi quy định</h3>
         </header>
       </div>
     );
