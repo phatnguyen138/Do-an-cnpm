@@ -1,34 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './sidebar.scss';
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./sidebar.scss";
 
 const sidebarNavItems = [
     {
-        display: 'Quy định tuổi',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/age',
-        section: 'age'
+        display: "Quy định tuổi",
+        icon: <i className="bx bx-receipt"></i>,
+        to: "/admin/quy-dinh-tuoi",
+        section: "quy-dinh-tuoi",
     },
     {
-        display: 'Quy định lớp học',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/admin',
-        section: 'admin'
+        display: "Thêm lớp học",
+        icon: <i className="bx bx-receipt"></i>,
+        to: "/admin/cap-nhat-lop",
+        section: "cap-nhat-lop",
     },
-    {
-        display: 'Quy định môn học',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/admin',
-        section: 'admin'
-    },
-    {
-        display: 'Quy định điểm chuẩn',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/admin',
-        section: 'admin'
-    },
-    
-]
+    // {
+    //     display: "Quy định môn học",
+    //     icon: <i className="bx bx-receipt"></i>,
+    //     to: "/admin",
+    //     section: "admin",
+    // },
+    // {
+    //     display: "Quy định điểm chuẩn",
+    //     icon: <i className="bx bx-receipt"></i>,
+    //     to: "/admin",
+    //     section: "admin",
+    // },
+];
 
 const Sidebar = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -39,32 +38,46 @@ const Sidebar = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            const sidebarItem = sidebarRef.current.querySelector('.sidebar__menu__item');
+            
+            const sidebarItem = sidebarRef.current.querySelector(
+                ".sidebar__menu__item",
+            );
             indicatorRef.current.style.height = `${sidebarItem.clientHeight}px`;
             setStepHeight(sidebarItem.clientHeight);
-        }, 50);
-    }, []);
+        }
+        , 5);
+
+    }, [location]);
 
     // change active index
     useEffect(() => {
-        const curPath = window.location.pathname.split('/')[1];
-        const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
+        const curPath = window.location.pathname.split("/")[2];
+        // console.log("Cur Path: ", curPath);
+        const activeItem = sidebarNavItems.findIndex(
+            (item) => item.section === curPath,
+        );
         setActiveIndex(curPath.length === 0 ? 0 : activeItem);
     }, [location]);
 
-    return <div className='sidebar'>
-        <div ref={sidebarRef} className="sidebar__menu">
-            <div
-                ref={indicatorRef}
-                className="sidebar__menu__indicator"
-                style={{
-                    transform: `translateX(-50%) translateY(${activeIndex * stepHeight}px)`
-                }}
-            ></div>
-            {
-                sidebarNavItems.map((item, index) => (
+    return (
+        <div className="sidebar">
+            <div ref={sidebarRef} className="sidebar__menu">
+                <div
+                    ref={indicatorRef}
+                    className="sidebar__menu__indicator"
+                    style={{
+                        transform: `translateX(-50%) translateY(${
+                            activeIndex * stepHeight
+                        }px)`,
+                    }}
+                ></div>
+                {sidebarNavItems.map((item, index) => (
                     <Link to={item.to} key={index}>
-                        <div className={`sidebar__menu__item ${activeIndex === index ? 'active' : ''}`}>
+                        <div
+                            className={`sidebar__menu__item ${
+                                activeIndex === index ? "active" : ""
+                            }`}
+                        >
                             <div className="sidebar__menu__item__icon">
                                 {item.icon}
                             </div>
@@ -73,10 +86,10 @@ const Sidebar = () => {
                             </div>
                         </div>
                     </Link>
-                ))
-            }
+                ))}
+            </div>
         </div>
-    </div>;
+    );
 };
 
 export default Sidebar;

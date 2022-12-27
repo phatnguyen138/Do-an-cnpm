@@ -202,8 +202,8 @@ export default class Register extends Component {
                                     <div></div>
                                     <Radio className="Radio" value="student">Student</Radio>
                                 </Radio.Group>          
-
                                 {/* Role */}
+                                
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">
                                         Sign Up

@@ -33,9 +33,9 @@ export default class Home extends Component {
     return (
       <div className="container login_bg ">
         
-        {/* <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header> */}
+        <header className="jumbotron">
+          <h3>{this.state.message}</h3>
+        </header>
       </div>
     );
   }
