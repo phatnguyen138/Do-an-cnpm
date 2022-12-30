@@ -2,32 +2,33 @@ import React, { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
-import AuthService from "./services/auth.service";
+import authHeader from "./services/auth-header";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
+
+import BoardUser from "./components/board-student.component";
+import BoardModerator from "./components/board-teacher.component";
 import BoardAdmin from "./components/board-admin.component";
 import AgeRule from "./components/AgeRule.component";
-import ClassRule from "./components/ClassRule.component";
+import ClassRule from "./components/ClassAdd.component";
+import SubjectRule from "./components/SubjectRule.component";
 
+import AuthService from "./services/auth.service";
+// import Profile from "./components/profile.component";
 import Logo from "./pictures/logout.png";
 
-import AuthVerify from "./common/auth-verify";
+// import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
-
 
 //Side bar
 import { ProSidebarProvider } from "react-pro-sidebar";
 
+// console.log("user:", user);
 class App extends Component {
     constructor(props) {
         super(props);
-        this.logOut = this.logOut.bind(this);
 
         this.state = {
             showModeratorBoard: false,
@@ -35,15 +36,14 @@ class App extends Component {
             currentUser: undefined,
         };
     }
-
     componentDidMount() {
-        const user = AuthService.getCurrentUser();
-
-        if (user) {
+        const data = authHeader();
+        const user = data;
+        if (user != null) {
             this.setState({
                 currentUser: user,
-                showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-                showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+                showAdminBoard: user.role.includes("admin"),
+                showTeacherBoard: user.role.includes("teacher"),
             });
         }
 
@@ -51,11 +51,6 @@ class App extends Component {
             this.logOut();
         });
     }
-
-    componentWillUnmount() {
-        EventBus.remove("logout");
-    }
-
     logOut() {
         AuthService.logout();
         this.setState({
@@ -64,10 +59,12 @@ class App extends Component {
             currentUser: undefined,
         });
     }
+    componentWillUnmount() {
+        EventBus.remove("logout");
+    }
 
     render() {
-        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
+        const {currentUser, showAdminBoard, showTeacherBoard } = this.state;
         return (
             <ProSidebarProvider>
                 <link
@@ -76,42 +73,33 @@ class App extends Component {
                 />
 
                 <div className="fontedit">
-                    <nav className="cardnav navbar navbar-expand-lg navbar-light  container-fluid">
-                        <Link to={"/"} className="navbar-brand fontedit">
+                    <nav className="cardnav navbar navbar-expand-lg navbar-light font1  ">
+                        <Link to={"/"} className="fontedit font1">
                             HCMUS
                         </Link>
                         <div className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <Link to={"/home"} className="nav-link font">
+                            <li className="">
+                                <Link to={"/home"} className="nav-link font1">
                                     Home
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to={"/admin/"} className="nav-link font">
-                                    Admin
-                                </Link>
-                            </li>
-
-                            {showModeratorBoard && (
+                            {showAdminBoard && (
                                 <li className="nav-item">
-                                    <Link to={"/mod"} className="nav-link">
-                                        Moderator Board
+                                    <Link
+                                        to={"/admin/"}
+                                        className="nav-link font"
+                                    >
+                                        Admin
                                     </Link>
                                 </li>
                             )}
-
-                            {/* {showAdminBoard && (
+                            {showTeacherBoard && (
                                 <li className="nav-item">
-                                    <Link to={"/admin"} className="nav-link">
-                                        Admin Board
-                                    </Link>
-                                </li>
-                            )} */}
-
-                            {currentUser && (
-                                <li className="nav-item">
-                                    <Link to={"/user"} className="nav-link">
-                                        User
+                                    <Link
+                                        to={"/teacher/"}
+                                        className="nav-link font"
+                                    >
+                                        Teacher
                                     </Link>
                                 </li>
                             )}
@@ -119,45 +107,40 @@ class App extends Component {
 
                         {currentUser ? (
                             <div className="navbar-nav ml-auto">
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <Link to={"/profile"} className="nav-link">
                                         {currentUser.username}
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li className="nav-item">
                                     <a
-                                        href="/login"
+                                        href="/auth/login"
                                         className="nav-link"
                                         onClick={this.logOut}
                                     >
                                         <img
-                                            class="Logo"
+                                            className="Logo"
                                             src={Logo}
                                             alt="Log out"
                                         ></img>
                                     </a>
                                 </li>
                             </div>
-                        ) : (
-                            <div className="navbar-nav ml-auto">
-                                <li className="nav-item">
-                                    <Link
-                                        to={"auth/login"}
-                                        className="nav-link"
-                                    >
-                                        Login
-                                    </Link>
-                                </li>
+                        ) : 
+                        (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link to={"auth/login"} className="nav-link">
+                                    Login
+                                </Link>
+                            </li>
 
-                                <li className="nav-item">
-                                    <Link
-                                        to={"auth/register"}
-                                        className="nav-link"
-                                    >
-                                        Sign Up
-                                    </Link>
-                                </li>
-                            </div>
+                            {/* <li className="nav-item">
+                                <Link to={"auth/register"} className="nav-link">
+                                    Sign Up
+                                </Link>
+                            </li> */}
+                        </div>
                         )}
                     </nav>
 
@@ -167,10 +150,10 @@ class App extends Component {
                             <Route path="/home" element={<Home />} />
                             <Route path="/auth/login" element={<Login />} />
                             <Route
-                                path="/auth/register"
+                                path="/admin/dang-ky"
                                 element={<Register />}
                             />
-                            <Route path="/profile" element={<Profile />} />
+                            {/* <Route path="/profile" element={<Profile />} /> */}
                             <Route path="/user" element={<BoardUser />} />
                             <Route path="/mod" element={<BoardModerator />} />
                             <Route path="/admin/" element={<BoardAdmin />} />
@@ -179,15 +162,15 @@ class App extends Component {
                                 element={<AgeRule />}
                             />
                             <Route
-                                path="/admin/cap-nhat-lop"
+                                path="/admin/them-lop"
                                 element={<ClassRule />}
                             />
-
-
+                            <Route
+                                path="/admin/cap-nhat-mon"
+                                element={<SubjectRule />}
+                            />
                         </Routes>
                     </div>
-
-                    <AuthVerify logOut={this.logOut} />
                 </div>
             </ProSidebarProvider>
         );

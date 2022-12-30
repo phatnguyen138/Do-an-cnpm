@@ -34,7 +34,7 @@ export default class Home extends Component {
       <div className="container login_bg ">
         
         <header className="jumbotron">
-          <h3>{this.state.message}</h3>
+          <h3>Trang chủ</h3>
         </header>
       </div>
     );

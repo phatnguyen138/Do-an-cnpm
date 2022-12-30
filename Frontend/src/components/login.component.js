@@ -18,6 +18,7 @@ const required = value => {
   }
 };
 
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +59,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.router.navigate("/profile");
+          this.props.router.navigate("/admin/");
           window.location.reload();
         },
         error => {

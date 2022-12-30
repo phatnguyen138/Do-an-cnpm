@@ -5,68 +5,48 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 
 import Admin from "../services/admin.service";
-var min, max;
+import ClassSidebar from "./ClassSidebar"
+
 const positive = (value) => {
-    if (value <= 0 || value > 100) {
+    if (value <= 0) {
         return (
             <div className="alert alertEdit alert-danger" role="alert">
-                Tuổi phải lớn hơn 0
+                Tuổi phải lớn hơn 0!
             </div>
         );
     }
 };
-const getMin = (value) => {
-    if (value) {
-        min = value;
-    }
-};
-const getMax = (value) => {
-    if (value) {
-        max = value;
-    }
-};
-
-const checkVali = () => {
-    if (min > max) {
-        return (
-            <div className="alert alertEdit alert-danger" role="alert">
-                Tuổi nhỏ nhất phải nhỏ hơn tuổi lớn nhất
-            </div>
-        );
-    }
-};
-
 const required = (value) => {
     if (!value) {
         return (
             <div className="alert alertEdit alert-danger" role="alert">
-                This field is required!
+                Bắt buộc!
             </div>
         );
     }
 };
 
-export default class AgeRule extends Component {
+export default class ClassRule extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMinAge = this.onChangeMinAge.bind(this);
-        this.onChangeMaxAge = this.onChangeMaxAge.bind(this);
+        this.onChangeClass1 = this.onChangeClass1.bind(this);
+        this.onChangeMaxAtten = this.onChangeAtten.bind(this);
 
         this.state = {
-            minAge: "",
-            maxAge: "",
+            class1: "",
+            maxAtten: "",
             successful: false,
         };
     }
-    onChangeMinAge(e) {
+    onChangeClass1(e) {
         this.setState({
-            minAge: e.target.value,
+            class1: e.target.value,
         });
     }
-    onChangeMaxAge(e) {
+    onChangeAtten(e) {
         this.setState({
-            maxAge: e.target.value,
+            maxAtten: e.target.value,
         });
     }
     handleSubmit(e) {
@@ -80,10 +60,9 @@ export default class AgeRule extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            console.log("send inf age success");
-            Admin.ageUpdate(this.state.minAge, this.state.maxAge).then(
+            console.log("send inf class success");
+            Admin.classAdd(this.state.class1, this.state.maxAtten).then(
                 (response) => {
-                    console.log("response.data.message", response.data.message);
                     this.setState({
                         message: response.data.message,
                         successful: true,
@@ -103,18 +82,20 @@ export default class AgeRule extends Component {
                     });
                 },
             );
-            
         }
     }
 
     render() {
         return (
             <div className="container gridNav  ">
-                <Sidebar />
+                <Sidebar /> 
                 <div>
+                <ClassSidebar/>
+                    
                     <header className="jumbotron">
-                        <h3>Thay đổi tuổi</h3>
+                        <h3>Thêm lớp học</h3>
                     </header>
+                    
 
                     <Form
                         onSubmit={this.handleSubmit}
@@ -126,30 +107,27 @@ export default class AgeRule extends Component {
                             <div>
                                 <label
                                     className="form-label form-check-label"
-                                    htmlFor="age"
+                                    htmlFor="class"
                                 >
-                                    Tuổi nhỏ nhất:{" "}
+                                    Tên lớp:{" "}
                                 </label>
                                 <Input
-                                    type="number"
-                                    name="minAge"
-                                    value={this.state.minAge}
-                                    onChange={this.onChangeMinAge}
-                                    validations={[required, positive, getMin, checkVali]}
+                                    type="text"
+                                    name="className"
+                                    value={this.state.class1}
+                                    onChange={this.onChangeClass1}
+                                    validations={[required]}
                                 ></Input>
-                                <label>Tuổi lớn nhất: </label>
+                                <label htmlFor="">Số lượng học sinh: </label>
                                 <Input
                                     type="number"
-                                    name="maxAge"
-                                    value={this.state.maxAge}
-                                    onChange={this.onChangeMaxAge}
-                                    validations={[required, positive, getMax]}
+                                    name="attend"
+                                    value={this.state.maxAtten}
+                                    onChange={this.onChangeAtten}
+                                    validations={[required, positive]}
                                 ></Input>
                                 <div className="form-group">
-                                    <button
-                                        className="btn topxn btn-primary btn-block"
-                                        validations={[checkVali]}
-                                    >
+                                    <button className="btn topxn btn-primary btn-block">
                                         Xác nhận
                                     </button>
                                 </div>
@@ -170,6 +148,7 @@ export default class AgeRule extends Component {
                                 </div>
                             </div>
                         )}
+
                         <CheckButton
                             style={{ display: "none" }}
                             ref={(c) => {

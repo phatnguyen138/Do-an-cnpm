@@ -17,16 +17,16 @@ router.post('/quy-dinh-tuoi',middlewareController.verifyAdmin,adminController.ag
 //Cap nhat quy dinh lop
 router.post('/cap-nhat-lop',middlewareController.verifyAdmin,adminController.classUpdate);
 // Xoa lop
-router.delete('/cap-nhat-lop',middlewareController.verifyAdmin,adminController.classDelete);
+router.delete('/xoa-lop',middlewareController.verifyAdmin,adminController.classDelete);
 // Them lop
-router.get('/cap-nhat-lop',middlewareController.verifyAdmin,adminController.classAdd);
+router.get('/them-lop',middlewareController.verifyAdmin,adminController.classAdd);
 
 //Cap nhat lop
 router.post('/cap-nhat-mon',middlewareController.verifyAdmin,adminController.subjectUpdate);
 // Xoa lop
-router.delete('/cap-nhat-mon',middlewareController.verifyAdmin,adminController.subjectDelete);
+router.delete('/xoa-mon',middlewareController.verifyAdmin,adminController.subjectDelete);
 // Them lop
-router.get('/cap-nhat-mon',middlewareController.verifyAdmin,adminController.subjectAdd);
+router.get('/them-mon',middlewareController.verifyAdmin,adminController.subjectAdd);
 
 // Them tai khoan
 router.post('/dang-ky',middlewareController.verifyAdmin,adminController.register);

@@ -5,9 +5,10 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 
 import Admin from "../services/admin.service";
+import Subject from "./Subject"
 
 const positive = (value) => {
-    if (value <=0) {
+    if (value <= 0) {
         return (
             <div className="alert alertEdit alert-danger" role="alert">
                 Tuổi phải lớn hơn 0!
@@ -87,71 +88,74 @@ export default class ClassRule extends Component {
     render() {
         return (
             <div className="container gridNav  ">
-                <Sidebar />
-                <div >
-                <header className="jumbotron">
-                    <h3>Thêm lớp học</h3>
-                </header>
+                <Sidebar /> 
+                <div>
+                <Subject/>
+                    
+                    <header className="jumbotron">
+                        <h3>Thêm môn học</h3>
+                    </header>
+                    
 
-                <Form
-                    onSubmit={this.handleSubmit}
-                    ref={(c) => {
-                        this.form = c;
-                    }}
-                >
-                    {!this.state.successful && (
-                        <div>
-                            <label
-                                className="form-label form-check-label"
-                                htmlFor="age"
-                            >
-                               Tên lớp: {" "}
-                            </label>
-                            <Input
-                                type="text"
-                                name="minAge"
-                                value={this.state.class}
-                                onChange={this.onChangeClass}
-                                validations={[required]}
-                            ></Input>
-                            <label for="">Số lượng học sinh: </label>
-                            <Input
-                                type="number"
-                                name="maxAge"
-                                value={this.state.maxAtten}
-                                onChange={this.onChangeAtten}
-                                validations={[required, positive]}
-                            ></Input>
-                            <div className="form-group">
+                    <Form
+                        onSubmit={this.handleSubmit}
+                        ref={(c) => {
+                            this.form = c;
+                        }}
+                    >
+                        {!this.state.successful && (
+                            <div>
+                                <label
+                                    className="form-label form-check-label"
+                                    htmlFor="age"
+                                >
+                                    Tên môn học:{" "}
+                                </label>
+                                <Input
+                                    type="text"
+                                    name="minAge"
+                                    value={this.state.class}
+                                    onChange={this.onChangeClass}
+                                    validations={[required]}
+                                ></Input>
+                                <label for="">Điểm chuẩn qua môn: </label>
+                                <Input
+                                    type="number"
+                                    name="maxAge"
+                                    value={this.state.maxAtten}
+                                    onChange={this.onChangeAtten}
+                                    validations={[required, positive]}
+                                ></Input>
+                                <div className="form-group">
                                     <button className="btn topxn btn-primary btn-block">
                                         Xác nhận
                                     </button>
                                 </div>
-                        </div>
-                    )}
-
-                    {this.state.message && (
-                        <div className="form-group">
-                            <div
-                                className={
-                                    this.state.successful
-                                        ? "alert alert-success"
-                                        : "alert alert-danger"
-                                }
-                                role="alert"
-                            >
-                                {this.state.message}
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    <CheckButton
-                        style={{ display: "none" }}
-                        ref={(c) => {
-                            this.checkBtn = c;
-                        }}
-                    />
-                </Form>
+                        {this.state.message && (
+                            <div className="form-group">
+                                <div
+                                    className={
+                                        this.state.successful
+                                            ? "alert alert-success"
+                                            : "alert alert-danger"
+                                    }
+                                    role="alert"
+                                >
+                                    {this.state.message}
+                                </div>
+                            </div>
+                        )}
+
+                        <CheckButton
+                            style={{ display: "none" }}
+                            ref={(c) => {
+                                this.checkBtn = c;
+                            }}
+                        />
+                    </Form>
                 </div>
             </div>
         );
