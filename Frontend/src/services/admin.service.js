@@ -2,10 +2,10 @@ import axios from "axios";
 import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/admin/";
-var token = authHeader();
+
 class Admin {
     ageUpdate(minAge, maxAge) {
-        console.log("token", token);
+        
         return axios.post(
             API_URL + "quy-dinh-tuoi",
             {

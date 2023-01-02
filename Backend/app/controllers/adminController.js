@@ -39,6 +39,7 @@ const adminController = {
         }
     },
     classUpdate: async (req, res) => {
+       
         try {
             await Class.findOneAndUpdate(
                 { className: req.body.oldName },
@@ -48,6 +49,8 @@ const adminController = {
                 },
                 { returnDocument: "after" },
             );
+            
+            console.log("Max age: ", maxAge);
             res.status(200).json("Class update success");
         } catch (err) {
             res.status(500).json(err);
@@ -65,6 +68,10 @@ const adminController = {
         }
     },
     classAdd: async (req, res) => {
+        const name = req.body.className;
+        const atten = req.body.attend;
+        console.log("Name ", name);
+            console.log("Attend: ", atten);
         try {
             const newClass = new Class({
                 className: req.body.className,
