@@ -12,7 +12,7 @@ class Admin {
             .then(function (response) {
                 const data = JSON.stringify(response.data);
                 localStorage.setItem("age", data);
-            });
+            },{ headers: authHeader() });
     }
     getClass() {
         console.log("Get class start");
@@ -21,15 +21,16 @@ class Admin {
             .then(function (response) {
                 const classData = JSON.stringify(response.data);
                 localStorage.setItem("class", classData);
-            });
+            },{ headers: authHeader() });
     }
     getSubject() {
+        console.log("Get subject start");
         return axios
             .post(API_URL + "get-subject", { headers: header })
             .then(function (response) {
                 const subject = JSON.stringify(response.data);
                 localStorage.setItem("subject", subject);
-            });
+            },{ headers: authHeader() });
     }
 
     ageUpdate(minAge, maxAge) {
@@ -71,23 +72,24 @@ class Admin {
         );
     }
 
-    SubjectUpdate(oldName, newName, grade) {
+    SubjectUpdate(id, newName, mark) {
         return axios.post(API_URL + "cap-nhat-mon", {
-            oldName,
+            id,
             newName,
-            grade,
-        });
+            mark,
+        },{ headers: authHeader() });
     }
-    SubjectDelete(name) {
-        return axios.delete(API_URL + "xoa-mon", {
-            name,
-        });
+    SubjectDelete(id) {
+        return axios.post(API_URL + "xoa-mon", {
+            id,
+        },{ headers: authHeader() });
     }
-    SubjectAdd(name, grade) {
-        return axios.get(API_URL + "them-mon", {
+    SubjectAdd(name, mark) {
+        console.log("name:", name)
+        return axios.post(API_URL + "them-mon", {
             name,
-            grade,
-        });
+            mark,
+        },{ headers: authHeader() });
     }
     register(username, email, password, role) {
         return axios.post(API_URL + "dang-ky", {
@@ -95,7 +97,7 @@ class Admin {
             password,
             email,
             role,
-        });
+        },{ headers: authHeader() });
     }
 }
 

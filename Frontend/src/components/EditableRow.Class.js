@@ -19,7 +19,7 @@ const EditableRow = ({
       </td>
       <td>
         <input
-          type="text"
+          type="number"
           required="required"
           placeholder="Sỉ số"
           name="attend"

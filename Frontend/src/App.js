@@ -12,7 +12,7 @@ import BoardUser from "./components/board-student.component";
 import BoardModerator from "./components/board-teacher.component";
 import BoardAdmin from "./components/board-admin.component";
 import AgeRule from "./components/AgeRule.component";
-import SubjectRule from "./components/SubjectRule.component";
+import SubjectUpdate from "./components/SubjectUpdate.component";
 
 import AuthService from "./services/auth.service";
 // import Profile from "./components/profile.component";
@@ -174,7 +174,7 @@ class App extends Component {
 
                             <Route
                                 path="/admin/cap-nhat-mon"
-                                element={<SubjectRule />}
+                                element={<SubjectUpdate />}
                             />
                         </Routes>
                     </div>

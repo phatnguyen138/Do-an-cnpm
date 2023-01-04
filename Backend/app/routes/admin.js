@@ -24,9 +24,9 @@ router.post('/them-lop',middlewareController.verifyAdmin,adminController.classAd
 //Cap nhat lop
 router.post('/cap-nhat-mon',middlewareController.verifyAdmin,adminController.subjectUpdate);
 // Xoa lop
-router.delete('/xoa-mon',middlewareController.verifyAdmin,adminController.subjectDelete);
+router.post('/xoa-mon',middlewareController.verifyAdmin,adminController.subjectDelete);
 // Them lop
-router.get('/them-mon',middlewareController.verifyAdmin,adminController.subjectAdd);
+router.post('/them-mon',middlewareController.verifyAdmin,adminController.subjectAdd);
 
 // Them tai khoan
 router.post('/dang-ky',middlewareController.verifyAdmin,adminController.register);

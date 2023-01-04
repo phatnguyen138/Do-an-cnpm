@@ -1,21 +1,22 @@
 import React, { useState, Fragment } from "react";
-import ReadOnlyRow from "./ReadOnlyRow.Class";
-import EditableRow from "./EditableRow.Class";
+import ReadOnlyRow from "./ReadOnlyRow.Subject";
+import EditableRow from "./EditableRow.Subject";
 import Sidebar from "./Sidebar";
 import Admin from "../services/admin.service";
 
-const classData = JSON.parse(localStorage.getItem("class"));
+
+const subjectData = JSON.parse(localStorage.getItem("subject"));
 const App = () => {
-    Admin.getClass();
-    const [contacts, setContacts] = useState(classData);
+    Admin.getSubject();
+    const [contacts, setContacts] = useState(subjectData);
     const [addFormData, setAddFormData] = useState({
-        nameClass: "",
-        attend: "",
+        name: "",
+        mark: "",
     });
 
     const [editFormData, setEditFormData] = useState({
-        nameClass: "",
-        attend: "",
+        name: "",
+        mark: "",
     });
 
     const [editContactId, setEditContactId] = useState(null);
@@ -46,13 +47,15 @@ const App = () => {
 
     const handleAddFormSubmit = (event) => {
         event.preventDefault();
-        Admin.classAdd(addFormData.nameClass, addFormData.attend);
+        //send data
+        Admin.SubjectAdd(addFormData.name, addFormData.mark);
+
         const newContact = {
-            nameClass: addFormData.nameClass,
-            attend: addFormData.attend,
+            name: addFormData.name,
+            mark: addFormData.mark,
         };
 
-        Admin.getClass();
+        Admin.getSubject();
 
         const newContacts = [...contacts, newContact];
         setContacts(newContacts);
@@ -60,15 +63,15 @@ const App = () => {
 
     const handleEditFormSubmit = (event) => {
         event.preventDefault();
-        Admin.classUpdate(
+        Admin.SubjectUpdate(
             editContactId,
-            editFormData.nameClass,
-            editFormData.attend,
+            editFormData.name,
+            editFormData.mark,
         );
         const editedContact = {
             id: editContactId,
-            nameClass: editFormData.nameClass,
-            attend: editFormData.attend,
+            name: editFormData.name,
+            mark: editFormData.mark,
         };
 
         const newContacts = [...contacts];
@@ -88,8 +91,8 @@ const App = () => {
         event.preventDefault();
         setEditContactId(contact.id);
         const formValues = {
-            nameClass: contact.nameClass,
-            attend: contact.attend,
+            name: contact.name,
+            mark: contact.mark,
         };
 
         setEditFormData(formValues);
@@ -101,7 +104,7 @@ const App = () => {
 
     const handleDeleteClick = (contactId) => {
         const newContacts = [...contacts];
-        Admin.classDelete(contactId);
+        Admin.SubjectDelete(contactId);
         const index = contacts.findIndex((contact) => contact.id === contactId);
         // console.log("vị trí:", contactId);
         newContacts.splice(index, 1);
@@ -116,8 +119,8 @@ const App = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Tên lớp học</th>
-                            <th>Sỉ số</th>
+                            <th>Tên môn học</th>
+                            <th>Điểm chuẩn đạt môn</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -145,20 +148,20 @@ const App = () => {
                 </table>
             </form>
 
-            <h2>Thêm lớp học</h2>
+            <h2>Thêm môn học mới</h2>
             <form onSubmit={handleAddFormSubmit}>
                 <input
                     type="text"
-                    name="nameClass"
+                    name="name"
                     required="required"
-                    placeholder="Tên lớp"
+                    placeholder="Tên môn học"
                     onChange={handleAddFormChange}
                 />
                 <input
                     type="number"
-                    name="attend"
+                    name="mark"
                     required="required"
-                    placeholder="Sỉ số lớp tối đa"
+                    placeholder="Điêm chuẩn đạt môn"
                     onChange={handleAddFormChange}
                 />
                 <button type="submit">Thêm</button>

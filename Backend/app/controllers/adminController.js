@@ -88,24 +88,27 @@ const adminController = {
     subjectUpdate: async (req, res) => {
         try {
             await Subject.findOneAndUpdate(
-                { name: req.body.oldName },
+                { _id: req.body.id },
                 {
                     name: req.body.newName,
-                    passGrade: req.body.grade,
+                    passGrade: req.body.mark,
                 },
                 { returnDocument: "after" },
             );
+            console.log("Sửa môn thành công!");
             res.status(200).json("Subject update success");
         } catch (err) {
             res.status(500).json(err);
         }
     },
     subjectDelete: async (req, res) => {
+        
         try {
             await Subject.findOneAndDelete(
-                { name: req.body.name },
+                { _id: req.body.id },
                 { returnDocument: "after" },
             );
+            console.log("Xoá môn thành công!");
             res.status(200).json("Subject deleted");
         } catch (err) {
             res.status(500).json(err);
@@ -115,9 +118,10 @@ const adminController = {
         try {
             const newSubject = new Subject({
                 name: req.body.name,
-                passGrade: req.body.grade,
+                passGrade: req.body.mark,
             });
             await newSubject.save();
+            console.log("Thêm môn thành công!");
             res.status(200).json("Subject added");
         } catch (err) {
             res.status(500).json(err);

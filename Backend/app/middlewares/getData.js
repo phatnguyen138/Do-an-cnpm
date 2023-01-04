@@ -45,7 +45,12 @@ const getData = {
             const subjects = await Subject.find({});
             list = [];
             for await (const element of subjects){
-                list.push(element.name)
+                temp1 = {
+                    "id": element.id,
+                    "name" : element.name,
+                    "mark": element.passGrade
+                }
+                list.push(temp1)
             }
             res.status(200).json(list);
         } catch(err){
