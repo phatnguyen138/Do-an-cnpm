@@ -46,9 +46,14 @@ const required = (value) => {
     }
 };
 
+const data = JSON.parse(localStorage.getItem("age"));
+
 export default class AgeRule extends Component {
     constructor(props) {
         super(props);
+        //
+
+        //
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChangeMinAge = this.onChangeMinAge.bind(this);
         this.onChangeMaxAge = this.onChangeMaxAge.bind(this);
@@ -57,6 +62,7 @@ export default class AgeRule extends Component {
             minAge: "",
             maxAge: "",
             successful: false,
+            msg: ""
         };
     }
     onChangeMinAge(e) {
@@ -75,6 +81,7 @@ export default class AgeRule extends Component {
         this.setState({
             message: "",
             successful: false,
+            msg: "Cập nhật thành công!" ,
         });
 
         this.form.validateAll();
@@ -83,8 +90,11 @@ export default class AgeRule extends Component {
             console.log("send inf age success");
             Admin.ageUpdate(this.state.minAge, this.state.maxAge).then(
                 (response) => {
-                    console.log("response.data.message", response.data.message);
+                    // data.minAge = this.state.minAge;
+                    // data.maxAge = this.state.maxAge;
+
                     this.setState({
+                        // message: response("Cập nhật thành công"),
                         message: response.data.message,
                         successful: true,
                     });
@@ -103,8 +113,9 @@ export default class AgeRule extends Component {
                     });
                 },
             );
-            
         }
+        data.min = this.state.minAge;
+        data.max = this.state.maxAge;
     }
 
     render() {
@@ -115,6 +126,11 @@ export default class AgeRule extends Component {
                     <header className="jumbotron">
                         <h3>Thay đổi tuổi</h3>
                     </header>
+                    <h5>Tuổi nhỏ nhất: {data.min} </h5>
+                    <h5>Tuổi lớn nhất: {data.max} </h5>
+
+                    <h2>Cập nhật</h2>
+                    <h3>{this.state.msg}</h3>
 
                     <Form
                         onSubmit={this.handleSubmit}
@@ -135,7 +151,12 @@ export default class AgeRule extends Component {
                                     name="minAge"
                                     value={this.state.minAge}
                                     onChange={this.onChangeMinAge}
-                                    validations={[required, positive, getMin, checkVali]}
+                                    validations={[
+                                        required,
+                                        positive,
+                                        getMin,
+                                        checkVali,
+                                    ]}
                                 ></Input>
                                 <label>Tuổi lớn nhất: </label>
                                 <Input
@@ -153,6 +174,7 @@ export default class AgeRule extends Component {
                                         Xác nhận
                                     </button>
                                 </div>
+                                
                             </div>
                         )}
 
@@ -178,6 +200,7 @@ export default class AgeRule extends Component {
                         />
                     </Form>
                 </div>
+                
             </div>
         );
     }

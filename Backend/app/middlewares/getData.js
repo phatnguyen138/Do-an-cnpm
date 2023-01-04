@@ -13,8 +13,8 @@ const getData = {
             req;
             const getAge = await Rule.findOne({});
             let ageRule = {
-                "minAge": getAge.minAge,
-                "maxAge": getAge.maxAge
+                "min": getAge.minAge,
+                "max": getAge.maxAge
             }
             res.status(200).json(ageRule);
         } catch(err){
@@ -27,7 +27,12 @@ const getData = {
             const getAge = await Class.find({});
             list = [];
             for await (const element of getAge){
-                list.push(element.className)
+                temp = {
+                    "id": element.id,
+                    "nameClass": element.className, 
+                    "attend": element.maxAttend
+                }
+                list.push(temp)
             }
             res.status(200).json(list);
         } catch(err){

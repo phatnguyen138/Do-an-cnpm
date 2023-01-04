@@ -12,14 +12,14 @@ router.post('/get-class',getData.getClass);
 router.post('/get-subject',getData.getSubject);
 
 // Cap nhat quy dinh tuoi
-router.post('/quy-dinh-tuoi',middlewareController.verifyAdmin,adminController.ageUpdate);
+router.post('/quy-dinh-tuoi1',middlewareController.verifyAdmin,adminController.ageUpdate);
 
 //Cap nhat quy dinh lop
 router.post('/cap-nhat-lop',middlewareController.verifyAdmin,adminController.classUpdate);
 // Xoa lop
 router.delete('/xoa-lop',middlewareController.verifyAdmin,adminController.classDelete);
 // Them lop
-router.get('/them-lop',middlewareController.verifyAdmin,adminController.classAdd);
+router.post('/them-lop',middlewareController.verifyAdmin,adminController.classAdd);
 
 //Cap nhat lop
 router.post('/cap-nhat-mon',middlewareController.verifyAdmin,adminController.subjectUpdate);

@@ -39,18 +39,20 @@ const adminController = {
         }
     },
     classUpdate: async (req, res) => {
-       
+        console.log("Name:", req.body.nameClass);
+        console.log("id: ", req.body.id);
+        console.log("Attend: ", req.body.maxAttend);
         try {
             await Class.findOneAndUpdate(
-                { className: req.body.oldName },
+                { _id: req.body.id },
                 {
-                    className: req.body.newName,
-                    maxAttend: req.body.newAttend,
+                    className: req.body.nameClass,
+                    maxAttend: req.body.maxAttend,
                 },
                 { returnDocument: "after" },
             );
-            
-            console.log("Max age: ", maxAge);
+
+            // console.log("Max age: ", maxAge);
             res.status(200).json("Class update success");
         } catch (err) {
             res.status(500).json(err);
@@ -68,13 +70,13 @@ const adminController = {
         }
     },
     classAdd: async (req, res) => {
-        const name = req.body.className;
+        const name = req.body.nameClass;
         const atten = req.body.attend;
-        console.log("Name ", name);
-            console.log("Attend: ", atten);
+        console.log("Name: ", name);
+        console.log("Attend: ", atten);
         try {
             const newClass = new Class({
-                className: req.body.className,
+                className: req.body.nameClass,
                 maxAttend: req.body.attend,
             });
             await newClass.save();

@@ -2,12 +2,39 @@ import axios from "axios";
 import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/admin/";
+const header = authHeader();
 
 class Admin {
+    getAge() {
+        console.log("Get data start");
+        return axios
+            .post(API_URL + "get-age", { headers: header })
+            .then(function (response) {
+                const data = JSON.stringify(response.data);
+                localStorage.setItem("age", data);
+            });
+    }
+    getClass() {
+        console.log("Get class start");
+        return axios
+            .post(API_URL + "get-class", { headers: header })
+            .then(function (response) {
+                const classData = JSON.stringify(response.data);
+                localStorage.setItem("class", classData);
+            });
+    }
+    getSubject() {
+        return axios
+            .post(API_URL + "get-subject", { headers: header })
+            .then(function (response) {
+                const subject = JSON.stringify(response.data);
+                localStorage.setItem("subject", subject);
+            });
+    }
+
     ageUpdate(minAge, maxAge) {
-        
         return axios.post(
-            API_URL + "quy-dinh-tuoi",
+            API_URL + "quy-dinh-tuoi1",
             {
                 minAge,
                 maxAge,
@@ -15,12 +42,14 @@ class Admin {
             { headers: authHeader() },
         );
     }
-    classUpdate(newName, newAttend) {
+    classUpdate(id,nameClass, maxAttend) {
+        console.log("Cập nhật lớp thành công ");
         return axios.post(
-            API_URL + "cap-nhat-lop",   
+            API_URL + "cap-nhat-lop",
             {
-                newName,
-                newAttend,
+                id,
+                nameClass,
+                maxAttend,
             },
             { headers: authHeader() },
         );
@@ -30,11 +59,12 @@ class Admin {
             className,
         });
     }
-    classAdd(className, attend) {
-        return axios.get(
+    classAdd(nameClass, attend) {
+        console.log("Thêm lớp thành công! ");
+        return axios.post(
             API_URL + "them-lop",
             {
-                className,
+                nameClass,
                 attend,
             },
             { headers: authHeader() },

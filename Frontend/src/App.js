@@ -12,7 +12,6 @@ import BoardUser from "./components/board-student.component";
 import BoardModerator from "./components/board-teacher.component";
 import BoardAdmin from "./components/board-admin.component";
 import AgeRule from "./components/AgeRule.component";
-import ClassRule from "./components/ClassAdd.component";
 import SubjectRule from "./components/SubjectRule.component";
 
 import AuthService from "./services/auth.service";
@@ -24,6 +23,7 @@ import EventBus from "./common/EventBus";
 
 //Side bar
 import { ProSidebarProvider } from "react-pro-sidebar";
+import ClassUpdate from "./components/ClassUpdate.component";
 
 // console.log("user:", user);
 class App extends Component {
@@ -64,7 +64,7 @@ class App extends Component {
     }
 
     render() {
-        const {currentUser, showAdminBoard, showTeacherBoard } = this.state;
+        const { currentUser, showAdminBoard, showTeacherBoard } = this.state;
         return (
             <ProSidebarProvider>
                 <link
@@ -126,21 +126,23 @@ class App extends Component {
                                     </a>
                                 </li>
                             </div>
-                        ) : 
-                        (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"auth/login"} className="nav-link">
-                                    Login
-                                </Link>
-                            </li>
+                        ) : (
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link
+                                        to={"auth/login"}
+                                        className="nav-link"
+                                    >
+                                        Login
+                                    </Link>
+                                </li>
 
-                            {/* <li className="nav-item">
+                                {/* <li className="nav-item">
                                 <Link to={"auth/register"} className="nav-link">
                                     Sign Up
                                 </Link>
                             </li> */}
-                        </div>
+                            </div>
                         )}
                     </nav>
 
@@ -163,8 +165,13 @@ class App extends Component {
                             />
                             <Route
                                 path="/admin/them-lop"
-                                element={<ClassRule />}
+                                element={<ClassUpdate />}
                             />
+                            <Route
+                                path="/admin/cap-nhat-lop"
+                                element={<ClassUpdate />}
+                            />
+
                             <Route
                                 path="/admin/cap-nhat-mon"
                                 element={<SubjectRule />}

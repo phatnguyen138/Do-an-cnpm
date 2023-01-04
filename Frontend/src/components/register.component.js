@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { Radio } from 'antd';
+import Sidebar from "./Sidebar";
 
 
 
@@ -141,6 +142,7 @@ export default class Register extends Component {
     render() {
         return (
             <div className="grid">
+                <Sidebar />
                 <img
                     src={background}
                     alt="background"
