@@ -17,7 +17,7 @@ router.post('/quy-dinh-tuoi1',middlewareController.verifyAdmin,adminController.a
 //Cap nhat quy dinh lop
 router.post('/cap-nhat-lop',middlewareController.verifyAdmin,adminController.classUpdate);
 // Xoa lop
-router.delete('/xoa-lop',middlewareController.verifyAdmin,adminController.classDelete);
+router.post('/xoa-lop',middlewareController.verifyAdmin,adminController.classDelete);
 // Them lop
 router.post('/them-lop',middlewareController.verifyAdmin,adminController.classAdd);
 
@@ -30,6 +30,5 @@ router.get('/them-mon',middlewareController.verifyAdmin,adminController.subjectA
 
 // Them tai khoan
 router.post('/dang-ky',middlewareController.verifyAdmin,adminController.register);
-
 
 module.exports = router;

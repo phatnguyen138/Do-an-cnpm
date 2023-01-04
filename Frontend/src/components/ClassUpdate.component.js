@@ -1,13 +1,11 @@
 import React, { useState, Fragment } from "react";
-import { nanoid } from "nanoid";
-// import "./App.css";
-import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 import Sidebar from "./Sidebar";
 import Admin from "../services/admin.service";
 
 
+Admin.getClass()
 const classData = JSON.parse(localStorage.getItem("class"));
 const App = () => {
     const [contacts, setContacts] = useState(classData);
@@ -63,7 +61,11 @@ const App = () => {
 
     const handleEditFormSubmit = (event) => {
         event.preventDefault();
-        Admin.classUpdate(editContactId,editFormData.nameClass,editFormData.attend)
+        Admin.classUpdate(
+            editContactId,
+            editFormData.nameClass,
+            editFormData.attend,
+        );
         const editedContact = {
             id: editContactId,
             nameClass: editFormData.nameClass,
@@ -100,9 +102,9 @@ const App = () => {
 
     const handleDeleteClick = (contactId) => {
         const newContacts = [...contacts];
-
+        Admin.classDelete(contactId);
         const index = contacts.findIndex((contact) => contact.id === contactId);
-
+        // console.log("vị trí:", contactId);
         newContacts.splice(index, 1);
 
         setContacts(newContacts);

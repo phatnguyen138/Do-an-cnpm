@@ -54,10 +54,10 @@ class Admin {
             { headers: authHeader() },
         );
     }
-    classDelete(className) {
-        return axios.delete(API_URL + "xoa-lop", {
-            className,
-        });
+    classDelete(id) {
+        return axios.post(API_URL + "xoa-lop", {
+            id,
+        },{ headers: authHeader() });
     }
     classAdd(nameClass, attend) {
         console.log("Thêm lớp thành công! ");

@@ -39,9 +39,8 @@ const adminController = {
         }
     },
     classUpdate: async (req, res) => {
-        console.log("Name:", req.body.nameClass);
-        console.log("id: ", req.body.id);
-        console.log("Attend: ", req.body.maxAttend);
+        console.log("Cập nhật lớp thành công!");
+
         try {
             await Class.findOneAndUpdate(
                 { _id: req.body.id },
@@ -59,9 +58,10 @@ const adminController = {
         }
     },
     classDelete: async (req, res) => {
+        console.log("Xoá lớp thành công!");
         try {
             await Class.findOneAndDelete(
-                { className: req.body.className },
+                { _id: req.body.id },
                 { returnDocument: "after" },
             );
             res.status(200).json("Class deleted");
