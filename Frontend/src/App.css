@@ -139,7 +139,8 @@ form * {
     width: fit-content;
 }
 .gridNav {
+    margin-left: 10%;
     width: 100%;
     display: grid;
-    grid-template-columns: 40% 60%;
+    /* grid-template-columns: 60% 40%; */
 }
