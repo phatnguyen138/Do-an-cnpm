@@ -4,7 +4,6 @@ import EditableRow from "./EditableRow.Subject";
 import Sidebar from "./Sidebar";
 import Admin from "../services/admin.service";
 
-
 const subjectData = JSON.parse(localStorage.getItem("subject"));
 const App = () => {
     Admin.getSubject();
@@ -113,59 +112,67 @@ const App = () => {
     };
 
     return (
-        <div className="app-container">
-            <Sidebar />
-            <form onSubmit={handleEditFormSubmit}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tên môn học</th>
-                            <th>Điểm chuẩn đạt môn</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {contacts.map((contact) => (
-                            <Fragment>
-                                {editContactId === contact.id ? (
-                                    <EditableRow
-                                        editFormData={editFormData}
-                                        handleEditFormChange={
-                                            handleEditFormChange
-                                        }
-                                        handleCancelClick={handleCancelClick}
-                                    />
-                                ) : (
-                                    <ReadOnlyRow
-                                        contact={contact}
-                                        handleEditClick={handleEditClick}
-                                        handleDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                            </Fragment>
-                        ))}
-                    </tbody>
-                </table>
-            </form>
+        <div className="gridNav">
+            <div>
+                <Sidebar />
+            </div>
+            <div>
+                <form onSubmit={handleEditFormSubmit}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên môn học</th>
+                                <th>Điểm chuẩn đạt môn</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {contacts.map((contact) => (
+                                <Fragment>
+                                    {editContactId === contact.id ? (
+                                        <EditableRow
+                                            editFormData={editFormData}
+                                            handleEditFormChange={
+                                                handleEditFormChange
+                                            }
+                                            handleCancelClick={
+                                                handleCancelClick
+                                            }
+                                        />
+                                    ) : (
+                                        <ReadOnlyRow
+                                            contact={contact}
+                                            handleEditClick={handleEditClick}
+                                            handleDeleteClick={
+                                                handleDeleteClick
+                                            }
+                                        />
+                                    )}
+                                </Fragment>
+                            ))}
+                        </tbody>
+                    </table>
+                </form>
 
-            <h2>Thêm môn học mới</h2>
-            <form onSubmit={handleAddFormSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    required="required"
-                    placeholder="Tên môn học"
-                    onChange={handleAddFormChange}
-                />
-                <input
-                    type="number"
-                    name="mark"
-                    required="required"
-                    placeholder="Điêm chuẩn đạt môn"
-                    onChange={handleAddFormChange}
-                />
-                <button type="submit">Thêm</button>
-            </form>
+                <h2>Thêm môn học mới</h2>
+                <form onSubmit={handleAddFormSubmit}>
+                    <input
+                        type="text"
+                        name="name"
+                        required="required"
+                        placeholder="Tên môn học"
+                        onChange={handleAddFormChange}
+                    />
+                    <input
+                        type="number"
+                        name="mark"
+                        required="required"
+                        placeholder="Điêm chuẩn đạt môn"
+                        onChange={handleAddFormChange}
+                    />
+                    <button type="submit">Thêm</button>
+                </form>
+            </div>
         </div>
     );
 };

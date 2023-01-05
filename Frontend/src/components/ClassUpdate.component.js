@@ -110,59 +110,67 @@ const App = () => {
     };
 
     return (
-        <div className="app-container">
-            <Sidebar />
-            <form onSubmit={handleEditFormSubmit}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tên lớp học</th>
-                            <th>Sỉ số</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {contacts.map((contact) => (
-                            <Fragment>
-                                {editContactId === contact.id ? (
-                                    <EditableRow
-                                        editFormData={editFormData}
-                                        handleEditFormChange={
-                                            handleEditFormChange
-                                        }
-                                        handleCancelClick={handleCancelClick}
-                                    />
-                                ) : (
-                                    <ReadOnlyRow
-                                        contact={contact}
-                                        handleEditClick={handleEditClick}
-                                        handleDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                            </Fragment>
-                        ))}
-                    </tbody>
-                </table>
-            </form>
+        <div className="gridNav">
+            <div>
+                <Sidebar />
+            </div>
+            <div>
+                <form onSubmit={handleEditFormSubmit}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên lớp học</th>
+                                <th>Sỉ số</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {contacts.map((contact) => (
+                                <Fragment>
+                                    {editContactId === contact.id ? (
+                                        <EditableRow
+                                            editFormData={editFormData}
+                                            handleEditFormChange={
+                                                handleEditFormChange
+                                            }
+                                            handleCancelClick={
+                                                handleCancelClick
+                                            }
+                                        />
+                                    ) : (
+                                        <ReadOnlyRow
+                                            contact={contact}
+                                            handleEditClick={handleEditClick}
+                                            handleDeleteClick={
+                                                handleDeleteClick
+                                            }
+                                        />
+                                    )}
+                                </Fragment>
+                            ))}
+                        </tbody>
+                    </table>
+                </form>
 
-            <h2>Thêm lớp học</h2>
-            <form onSubmit={handleAddFormSubmit}>
-                <input
-                    type="text"
-                    name="nameClass"
-                    required="required"
-                    placeholder="Tên lớp"
-                    onChange={handleAddFormChange}
-                />
-                <input
-                    type="number"
-                    name="attend"
-                    required="required"
-                    placeholder="Sỉ số lớp tối đa"
-                    onChange={handleAddFormChange}
-                />
-                <button type="submit">Thêm</button>
-            </form>
+                <h2>Thêm lớp học</h2>
+                <form onSubmit={handleAddFormSubmit}>
+                    <input
+                        type="text"
+                        name="nameClass"
+                        required="required"
+                        placeholder="Tên lớp"
+                        onChange={handleAddFormChange}
+                    />
+                    <input
+                        type="number"
+                        name="attend"
+                        required="required"
+                        placeholder="Sỉ số lớp tối đa"
+                        onChange={handleAddFormChange}
+                    />
+                    <button type="submit">Thêm</button>
+                </form>
+            </div>
         </div>
     );
 };

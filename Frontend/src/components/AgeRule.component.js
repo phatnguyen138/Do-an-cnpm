@@ -120,8 +120,9 @@ export default class AgeRule extends Component {
 
     render() {
         return (
-            <div className="container gridNav  ">
+            <div className="gridNav  ">
                 <Sidebar />
+                <div></div>
                 <div>
                     <header className="jumbotron">
                         <h3>Thay đổi tuổi</h3>
