@@ -120,9 +120,17 @@ const adminController = {
                 name: req.body.name,
                 passGrade: req.body.mark,
             });
-            await newSubject.save();
+            const subject = await newSubject.save();
+            const studentList = Student.find({});
+            for await (element of studentList){
+                var newGrade = new Grade({
+                    studentID: element.id,
+                    subjectID: subject.id
+                })
+                await newGrade.save();
+            }
             console.log("Thêm môn thành công!");
-            res.status(200).json("Subject added");
+            return res.status(200).json("Subject added");
         } catch (err) {
             res.status(500).json(err);
         }

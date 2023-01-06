@@ -14,9 +14,29 @@ const teacherController = {
                 birthDay: req.body.birthDay,
                 address: req.body.address,
                 email: req.body.email
-            })
-            const student = await newStudent.save()
-            res.status(200).json(student);
+            });
+            const student = await newStudent.save();
+            const subjectList = await Subject.find({});
+            let count = 0;
+            for (element of subjectList){
+                let firstTerm = new Grade({
+                    studentID: student.id,
+                    subjectID: element.id,
+                    term: true
+                })
+                let firstTermUpdate = await firstTerm.save();
+                let firstId = firstTermUpdate.id;
+                let secondTerm = new Grade({
+                    studentID: student.id,
+                    subjectID: element.id,
+                    term: true
+                })
+                let secondTermUpdate = await secondTerm.save();
+                let secondId = secondTermUpdate.id;
+                await Student.findOneAndUpdate({ _id: student.id}, {$push: {grade: [firstId, secondId]}});
+            }
+            console.log(count);
+            return res.status(200).json(student);
         }
         catch(err){
             res.status(500).json(err);
@@ -27,11 +47,10 @@ const teacherController = {
             const idList = req.body.idList;
             const className = req.body.className;
             const classFind = await Class.findOne({className: className});
-            const classId = classFind._id;
-            await Class.findOneAndUpdate({id: classId}, {studentList: []},{ returnDocument: 'after' });
+            const classId = new mongoose.Types.ObjectId(classFind._id);
             for await (const element of idList) {
-                await Student.findOneAndUpdate({id: element},{ classAttend: classId },{ returnDocument: 'after' });
-                await Class.findOneAndUpdate({id: classId},{$push: {studentList: element}},{ returnDocument: 'after' });
+                await Student.findOneAndUpdate({_id: element},{$set: {classAttend: classId} },{ returnDocument: 'after' });
+                await Class.findOneAndUpdate({_id: classId},{$push: {studentList: element}},{ returnDocument: 'after' });
             }
             res.status(200).json('Update success');
         }catch(err){
@@ -45,24 +64,17 @@ const teacherController = {
             if(!chosenClass){
                 return res.status(404).json(chosenClass);
             };
-            const subjectCount = await Subject.countDocuments({});
             const studentList = chosenClass.studentList;
-            let idList = [];
-            for await (const element of studentList){
-                idList.push(element._id);
+            let answer = [];
+            for (element of studentList){
+                let info = {
+                    name: element.name,
+                    firstTerm: element.firstTerm,
+                    secondTerm: element.secondTerm
+                }
+                await answer.push(info);
             }
-            const gradeList = Student.find({id: {"$in" : ["idList"]}}).populate("grade");
-            (await gradeList).forEach((element)=>{
-                var first = 0;
-                var second = 0;
-                // for await (const mark of element.grade){
-                //     if(mark.term == true){
-                //         await;
-                //     }
-                // }
-
-            })
-            res.status(200).json(studentList);
+            res.status(200).json(answer);
         }catch(err){
             res.status(500).json(err);
         }
@@ -85,8 +97,42 @@ const teacherController = {
         }
     },
     subjectSummary: async(req,res) => {
-        subject = req.subjectName,
-        term = req.term
+        try{
+            const term = req.term;
+            const subjectChosen = await Subject.findOne({className: req.subjectName});
+            const passGrade = subjectChosen.passGrade;
+            
+            let answer = [];
+
+            const classList = await Class.find({});
+            for await (eachClass of classList){
+                let classAttend = eachClass.studentList.length;
+                let studentList = eachClass.studentList;
+                let passNumber = 0;
+
+                for await (eachStudent of studentList){
+                    let gradeList = await Student.findOne({_id: eachStudent}).populate("grade");
+                    for (eachGrade of gradeList.grade){
+                        if (eachGrade.term == term && eachGrade.final >= passGrade){
+                            passNumber++;
+                        }
+                    }
+                }
+
+                let passRatio = passNumber/eachClass.maxAttend;
+                let classInfo = {
+                    className: eachClass.className,
+                    attend: classAttend,
+                    passNumber: passNumber,
+                    ratio: passRatio
+                }
+                answer.push(classInfo);
+            }
+            res.status(200).json(answer);
+        }catch(err){
+            res.status(500).json(err);
+        }
+        
     },
 }
 

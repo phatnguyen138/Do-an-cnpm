@@ -71,7 +71,7 @@ app.use('/admin', adminRoute);
 
 //Connect to database (Phat's database)
 // Collect with mongo atlas by MONGODB_URL in .env file
-mongoose.connect(process.env.MONGODB_URL,()=>{
+mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser: true},()=>{
     console.log('Connected to database')
 })
 

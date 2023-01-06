@@ -57,6 +57,23 @@ const getData = {
             res.status(500).json(err);
         }
     },
+    availableStudent: async(req,res) => {
+        try{
+            req;
+            const studentList = await Student.find({ classAttend: null});
+            var reqList = new Array();
+            for await (element of studentList){
+                let student = {
+                    name: element.name,
+                    id: element.id
+                }
+                await reqList.push(student);
+            }
+            res.status(200).json(reqList);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    }
 }
 
 module.exports = getData
