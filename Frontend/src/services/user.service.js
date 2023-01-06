@@ -9,17 +9,36 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  // getUserBoard() {
-  //   return axios.get(API_URL + 'user', { headers: authHeader() });
-  // }
+  getClass() {
+      console.log("Get class start");
+      return axios
+          .post(API_URL + "get-class")
+          .then(function (response) {
+              const classData = JSON.stringify(response.data);
+              localStorage.setItem("class", classData);
+          });
+  }
 
-  // getModeratorBoard() {
-  //   return axios.get(API_URL + 'mod', { headers: authHeader() });
-  // }
+  getSubject() {
+      console.log("Get subject start");
+      return axios
+          .post(API_URL + "get-subject")
+          .then(function (response) {
+              const subject = JSON.stringify(response.data);
+              localStorage.setItem("subject", subject);
+          });
+  }
 
-  // getAdminBoard() {
-  //   return axios.get(API_URL + 'admin', { headers: authHeader() });
-  // }
+  search(className,subjectName,term){
+    return axios
+          .post(API_URL + "tra-cuu",
+            {
+              className,
+              subjectName,
+              term
+            }
+          );
+  }
 }
 
 export default new UserService();

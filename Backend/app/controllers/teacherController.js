@@ -80,26 +80,25 @@ const teacherController = {
         }
     },
     gradeUpdate: async(req,res) => {
-        try{    
-            const className = req.body.className;
-            const classId = Class.findOne({className: className});
+        try{
             const term = req.body.term;
-            const subjectName = req.subject.subjectName;
-            const subjectID = Sub
-            studentList = Student.find({classAttend: classId});
-            gradeList = [];
-            grades = await Grade.find({
-                subjectID: sub
+            const subjectName = req.body.subject.subjectName;
+            const subjectID = Subject.findOne({name: subjectName}).id;
+            
+            const changeInfo = req.changeInfo;
 
-            })
+            for (each of changeInfo){
+
+            }
+
         }catch(err){
             res.status(500).json(err);
         }
     },
     subjectSummary: async(req,res) => {
         try{
-            const term = req.term;
-            const subjectChosen = await Subject.findOne({className: req.subjectName});
+            const term = req.body.term;
+            const subjectChosen = await Subject.findOne({className: req.body.subjectName});
             const passGrade = subjectChosen.passGrade;
             
             let answer = [];

@@ -73,6 +73,73 @@ const getData = {
         }catch(err){
             res.status(500).json(err);
         }
+    },
+    getGradeSummary: async(req,res) => {
+        try{
+            const classChosen = await Class.findOne({ className: req.body.className}).populate('studentList');
+            const studentList = classChosen.studentList;
+            const subjectChosen = await Subject.findOne({ name: req.body.subjectName});
+            const subjectID = subjectChosen.id;
+            let resList = [];
+
+            for (eachStudent of studentList){
+                let gradeInfo = await Grade.findOne({ studentID: eachStudent.id, term: req.body.term, subjectID: subjectID});
+
+                let studentInfo = {
+                    name: eachStudent.name,
+                    fifteen: gradeInfo.fifteen,
+                    midterm: gradeInfo.midterm,
+                    lastterm: gradeInfo.lastterm
+                }
+
+                resList.push(studentInfo);
+            }
+
+            res.status(200).json(resList);
+        }catch(err){
+            res.status(500).json(err);
+        }
+    },
+    termSummary: async(req,res) => {
+        try{
+            const classChosen = await Class.findOne({ className: req.body.className}).populate('studentList');
+            const classList = classChosen.studentList;
+            const subjectList = await Subject.find({});
+
+            var answerList = []
+            for (eachStudent of classList){
+                var gradeList = [];
+                for (eachSubject of subjectList){
+                    let eachGrade = await Grade.findOne({ term: req.body.term, studentID: eachStudent.id, subjectID:eachSubject.id });
+                    if (eachGrade){
+                        let subjectName = eachSubject.name;
+                        let info = {
+                            [subjectName]: eachGrade.final
+                        }
+                        gradeList.push(info);
+                    }
+                }
+    
+                var total = 0;
+                if (req.body.term){
+                    total = eachStudent.firstTerm;
+                }else{
+                    total = eachStudent.secondTerm;
+                }
+
+                let studentInfo = {
+                    name: eachStudent.name,
+                    gradeList: gradeList,
+                    total: total
+                }
+                answerList.push(studentInfo);
+            }
+            res.status(200).json(answerList);
+        }
+        catch(err){
+            res.status(500).json(err);
+        }
+
     }
 }
 

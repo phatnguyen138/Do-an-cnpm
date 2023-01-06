@@ -156,8 +156,8 @@ class App extends Component {
                                 element={<Register />}
                             />
                             {/* <Route path="/profile" element={<Profile />} /> */}
-                            <Route path="/user" element={<BoardUser />} />
-                            <Route path="/mod" element={<BoardModerator />} />
+                            <Route path="/user/" element={<BoardUser />} />
+                            <Route path="/mod/" element={<BoardModerator />} />
                             <Route path="/admin/" element={<BoardAdmin />} />
                             <Route
                                 path="/admin/quy-dinh-tuoi"

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const authRoute = require('./app/routes/auth');
 const teacherRoute = require('./app/routes/teacher');
 const adminRoute = require('./app/routes/admin');
+const studentRoute = require('./app/routes/student');
 const Class = require('./app/models/ClassInfo');
 const Subject = require('./app/models/Subject');
 const Rule = require('./app/models/Rules');
@@ -67,6 +68,7 @@ ruleAssign();
 app.use('/auth', authRoute);
 app.use('/teacher', teacherRoute);
 app.use('/admin', adminRoute);
+app.use('/student',studentRoute);
 
 
 //Connect to database (Phat's database)
