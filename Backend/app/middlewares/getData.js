@@ -64,8 +64,7 @@ const getData = {
             var reqList = new Array();
             for await (element of studentList){
                 let student = {
-                    name: element.name,
-                    id: element.id
+                    name: element
                 }
                 await reqList.push(student);
             }
