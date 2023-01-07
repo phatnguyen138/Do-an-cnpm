@@ -82,15 +82,20 @@ const teacherController = {
     gradeUpdate: async(req,res) => {
         try{
             const term = req.body.term;
-            const subjectName = req.body.subject.subjectName;
-            const subjectID = Subject.findOne({name: subjectName}).id;
+            const subjectName = await Subject.findOne({name: req.body.subjectName});
+            const subjectID = subjectName.id;
             
-            const changeInfo = req.changeInfo;
+            const changeList = req.body.changeList;
 
-            for (each of changeInfo){
-
+            for (each of changeList){
+                let changeData = {
+                    fifteen: each.fifteen,
+                    midterm: each.midterm,
+                    lastterm: each.lastterm
+                }
+                var data =  await Grade.findOneAndUpdate({studentID: each.studentID, term: term, subjectID: subjectID},{$set: changeData},{returnDocument: "after"});
             }
-
+            res.status(200).json(data);
         }catch(err){
             res.status(500).json(err);
         }

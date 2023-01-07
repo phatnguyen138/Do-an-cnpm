@@ -87,6 +87,7 @@ const getData = {
 
                 let studentInfo = {
                     name: eachStudent.name,
+                    studentID: eachStudent.id,
                     fifteen: gradeInfo.fifteen,
                     midterm: gradeInfo.midterm,
                     lastterm: gradeInfo.lastterm

@@ -6,13 +6,13 @@ const sidebarNavItems = [
     {
         display: "Tra cứu bảng điểm môn",
         icon: <i className="bx bx-receipt"></i>,
-        to: "/student/tra-cuu",
+        to: "/user/tra-cuu",
         section: "tra-cuu",
     },
     {
         display: "Tra cứu bảng điểm học kỳ",
         icon: <i className="bx bx-receipt"></i>,
-        to: "/student/tong-ket",
+        to: "/user/tong-ket",
         section: "tong-ket",
     },
 ];

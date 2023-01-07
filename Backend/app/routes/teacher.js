@@ -16,8 +16,11 @@ router.post('/lap-danh-sach', middleController.verifyTeacher, teacherController.
 
 router.post('/tra-cuu', middleController.verifyTeacher,teacherController.studentSearch);
 
-router.post('/cap-nhat-diem', middleController.verifyTeacher);
+router.get('/cap-nhat-diem',getData.getGradeSummary);
+
+router.post('/cap-nhat-diem', teacherController.gradeUpdate);
 
 router.post('/tong-ket-mon',middleController.verifyTeacher,teacherController.subjectSummary);
+
 
 module.exports = router;
