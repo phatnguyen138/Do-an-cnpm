@@ -13,7 +13,10 @@ import BoardModerator from "./components/board-teacher.component";
 import BoardAdmin from "./components/board-admin.component";
 import AgeRule from "./components/AgeRule.component";
 import SubjectUpdate from "./components/SubjectUpdate.component";
+// teacher
+import AddStudent from "./components/TiepNhanHs.component";
 
+// teacher
 import AuthService from "./services/auth.service";
 // import Profile from "./components/profile.component";
 import Logo from "./pictures/logout.png";
@@ -24,6 +27,7 @@ import EventBus from "./common/EventBus";
 //Side bar
 import { ProSidebarProvider } from "react-pro-sidebar";
 import ClassUpdate from "./components/ClassUpdate.component";
+import LapDanhSachLop from "./components/LapDanhSachLop.component";
 
 // console.log("user:", user);
 class App extends Component {
@@ -157,8 +161,9 @@ class App extends Component {
                             />
                             {/* <Route path="/profile" element={<Profile />} /> */}
                             <Route path="/user/" element={<BoardUser />} />
-                            <Route path="/mod/" element={<BoardModerator />} />
+                            <Route path="/teacher/" element={<BoardModerator />} />
                             <Route path="/admin/" element={<BoardAdmin />} />
+                            {/* Admin */}
                             <Route
                                 path="/admin/quy-dinh-tuoi"
                                 element={<AgeRule />}
@@ -176,6 +181,19 @@ class App extends Component {
                                 path="/admin/cap-nhat-mon"
                                 element={<SubjectUpdate />}
                             />
+                            {/* Admin */}
+
+                            {/* Teacher */}
+                            <Route
+                                path="/teacher/tiep-nhan"
+                                element={<AddStudent />}
+                            />
+                            <Route
+                                path="/teacher/lap-danh-sach"
+                                element={<LapDanhSachLop/>}
+                            />
+
+                            {/* Teacher */}
                         </Routes>
                     </div>
                 </div>

@@ -120,13 +120,16 @@ export default class AgeRule extends Component {
 
     render() {
         return (
+            <div>
+                
+                <header className="jumbotron">
+                        <h3>Cập nhật quy định tuổi</h3>
+                    </header>
             <div className="gridNav  ">
                 <Sidebar />
                 <div></div>
                 <div>
-                    <header className="jumbotron">
-                        <h3>Thay đổi tuổi</h3>
-                    </header>
+                    
                     <h5>Tuổi nhỏ nhất: {data.min} </h5>
                     <h5>Tuổi lớn nhất: {data.max} </h5>
 
@@ -202,6 +205,7 @@ export default class AgeRule extends Component {
                     </Form>
                 </div>
                 
+            </div>
             </div>
         );
     }

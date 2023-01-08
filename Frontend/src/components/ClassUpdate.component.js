@@ -110,10 +110,16 @@ const App = () => {
     };
 
     return (
+        <div>
+            <header className="jumbotron">
+                    <h3>Cập nhật quy định lớp</h3>
+                </header>
+       
         <div className="gridNav">
             <div>
                 <Sidebar />
             </div>
+            
             <div>
                 <form onSubmit={handleEditFormSubmit}>
                     <table>
@@ -171,6 +177,7 @@ const App = () => {
                     <button type="submit">Thêm</button>
                 </form>
             </div>
+        </div>
         </div>
     );
 };

@@ -4,25 +4,25 @@ import "./sidebar.scss";
 
 const sidebarNavItems = [
     {
-        display: "Quy định tuổi",
+        display: "Cập nhất quy định tuổi",
         icon: <i className="bx bx-receipt"></i>,
         to: "/admin/quy-dinh-tuoi",
         section: "quy-dinh-tuoi",
     },
     {
-        display: "Xử lí lớp học",
+        display: "Cập nhật quy định lớp học",
         icon: <i className="bx bx-receipt"></i>,
         to: "/admin/them-lop",
         section: "them-lop",
     },
     {
-        display: "Xử lí môn học",
+        display: "Cập nhật quy định môn học",
         icon: <i className="bx bx-receipt"></i>,
         to: "/admin/cap-nhat-mon",
         section: "cap-nhat-mon",
     },
     {
-        display: "Thêm tài khoản",
+        display: "Tạo tài khoản mới",
         icon: <i className="bx bx-receipt"></i>,
         to: "/admin/dang-ky",
         section: "dang-ky",

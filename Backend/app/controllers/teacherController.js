@@ -7,6 +7,7 @@ const { json } = require('express');
 
 const teacherController = {
     signStudent: async(req,res)=>{
+        console.log("Đang tiếp nhận")
         try{
             const newStudent = new Student({
                 name: req.body.name,
@@ -43,6 +44,7 @@ const teacherController = {
         }
     },
     classListAssign: async(req,res)=>{
+        const array = [];
         try{
             const idList = req.body.idList;
             const className = req.body.className;
@@ -86,6 +88,7 @@ const teacherController = {
             const subjectID = subjectName.id;
             
             const changeList = req.body.changeList;
+            
 
             for (each of changeList){
                 let changeData = {

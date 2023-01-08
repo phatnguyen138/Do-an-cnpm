@@ -141,6 +141,11 @@ export default class Register extends Component {
 
     render() {
         return (
+            <div>
+                <header className="jumbotron">
+                        <h3>Tạo tài khoản mới</h3>
+                    </header>
+            
             <div className="grid">
                 <Sidebar />
                 <img
@@ -236,6 +241,7 @@ export default class Register extends Component {
                         />
                     </Form>
                 </div>
+            </div>
             </div>
         );
     }

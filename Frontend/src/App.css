@@ -55,7 +55,6 @@ form * {
 
 /* ClassUpdate */
 
-
 .navbar-nav {
     color: white;
 }
@@ -64,11 +63,24 @@ form * {
     max-width: 350px !important;
     padding: 40px 40px;
 }
+.edited
+{
+    width: 450px;
+}
+.MuiPaper-root .MTableToolbar-highlight-6 {
+    background-color: #58e1f8;
+    font-size: 1px;
+    color: black;
+  }
 
 .grid {
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
+}
+.withedit
+{
+    width: 12%;
 }
 
 .background {
@@ -81,6 +93,11 @@ form * {
     width: 30px;
     height: auto;
 }
+.gridTiepNhanHs
+{
+    display: grid;
+    grid-template-columns: 8% 30% ;
+}
 
 .card {
     width: 500px;
@@ -88,7 +105,7 @@ form * {
     backdrop-filter: blur(5px);
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
-   
+
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -121,10 +138,24 @@ form * {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+.home1 {
+    position: flex;
+    top: 156px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    width: 56.2vw;
+    height: 56.2vh;
+}
 
 .Radio {
     font-size: medium;
     margin-bottom: 10px;
+
+    max-width: 99%; /* Prevents issues with long content causes the content block to be pushed to the top */
+    /* max-width: calc(100% - 0.25em) /* Only for IE9+ */
 }
 
 .sidebar {
@@ -142,5 +173,5 @@ form * {
     /* margin-left: 10%; */
     width: 100%;
     display: grid;
-    grid-template-columns: 12% 88% ;
+    grid-template-columns: 12% 88%;
 }

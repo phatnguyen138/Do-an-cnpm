@@ -18,7 +18,7 @@ export default class BoardAdmin extends Component {
 
     render() {
         return (
-            <div className="container gridNav">
+            <div className="container ">
                 <Sidebar />
                 <header className="jumbotron">
                     <h3>Thay đổi quy định</h3>

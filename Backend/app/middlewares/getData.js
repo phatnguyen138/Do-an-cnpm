@@ -63,10 +63,7 @@ const getData = {
             const studentList = await Student.find({ classAttend: null});
             var reqList = new Array();
             for await (element of studentList){
-                let student = {
-                    name: element
-                }
-                await reqList.push(student);
+                await reqList.push(element);
             }
             res.status(200).json(reqList);
         }catch(err){

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
+import background from "../pictures/Home1.jpg";
 
 export default class Home extends Component {
   constructor(props) {
@@ -36,6 +37,11 @@ export default class Home extends Component {
         <header className="jumbotron">
           <h3>Trang chủ</h3>
         </header>
+        <img
+                    src={background}
+                    alt="background"
+                    className="background home1 "
+                ></img>
       </div>
     );
   }
