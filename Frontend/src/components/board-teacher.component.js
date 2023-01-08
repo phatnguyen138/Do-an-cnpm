@@ -11,6 +11,7 @@ export default class BoardModerator extends Component {
         Teacher.getClass();
         Teacher.getSubject();
         Teacher.availableStudent();
+        Teacher.TraCuuHs("10A1");
 
         this.state = {
             content: "",

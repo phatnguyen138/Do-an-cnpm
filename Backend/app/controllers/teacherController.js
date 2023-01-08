@@ -6,6 +6,13 @@ const Subject = require('../models/Subject');
 const { json } = require('express');
 
 const teacherController = {
+    gradeUpdate: async() => {
+        const gradeFind = await Grade.find({});
+        for (eachGrade of gradeFind){
+            let finalGrade = eachGrade.fifteen*0.2 + eachGrade*0.3 + eachGrade*0.5;
+            await Grade.findOneAndUpdate({_id: eachGrade.id},{$set: {final: finalGrade}},{returnDocument: "after"});
+        }
+    },
     signStudent: async(req,res)=>{
         console.log("Đang tiếp nhận")
         try{
@@ -18,7 +25,6 @@ const teacherController = {
             });
             const student = await newStudent.save();
             const subjectList = await Subject.find({});
-            let count = 0;
             for (element of subjectList){
                 let firstTerm = new Grade({
                     studentID: student.id,
@@ -36,7 +42,6 @@ const teacherController = {
                 let secondId = secondTermUpdate.id;
                 await Student.findOneAndUpdate({ _id: student.id}, {$push: {grade: [firstId, secondId]}});
             }
-            console.log(count);
             return res.status(200).json(student);
         }
         catch(err){
@@ -69,10 +74,21 @@ const teacherController = {
             const studentList = chosenClass.studentList;
             let answer = [];
             for (element of studentList){
+                let firstTerm = await Grade.find({studentID: element.id, term: true});
+                const count =  await Subject.countDocuments({});
+                let firstGrade =0;
+                for (eachGrade of firstTerm){
+                    firstGrade = firstGrade + (eachGrade.final)/count;
+                }
+                let secondTerm = await Grade.find({studentID: element.id, term: false});
+                let secondGrade =0;
+                for (eachGrade of secondTerm){
+                    secondGrade = secondGrade + eachGrade.final/count;
+                }
                 let info = {
                     name: element.name,
-                    firstTerm: element.firstTerm,
-                    secondTerm: element.secondTerm
+                    firstTerm: firstGrade,
+                    secondTerm: secondGrade
                 }
                 await answer.push(info);
             }
@@ -97,6 +113,7 @@ const teacherController = {
                     lastterm: each.lastterm
                 }
                 var data =  await Grade.findOneAndUpdate({studentID: each.studentID, term: term, subjectID: subjectID},{$set: changeData},{returnDocument: "after"});
+                teacherController.gradeUpdate();
             }
             res.status(200).json(data);
         }catch(err){

@@ -13,8 +13,6 @@ import BoardModerator from "./components/board-teacher.component";
 import BoardAdmin from "./components/board-admin.component";
 import AgeRule from "./components/AgeRule.component";
 import SubjectUpdate from "./components/SubjectUpdate.component";
-// teacher
-import AddStudent from "./components/TiepNhanHs.component";
 
 // teacher
 import AuthService from "./services/auth.service";
@@ -28,7 +26,9 @@ import EventBus from "./common/EventBus";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import ClassUpdate from "./components/ClassUpdate.component";
 import LapDanhSachLop from "./components/LapDanhSachLop.component";
-
+import TiepNhanHs from "./components/TiepNhanHs.component";
+import StudentSearch from "./components/StudentSearch.component";
+import TraCuu from "./components/TraCuuHocSinh.component";
 // console.log("user:", user);
 class App extends Component {
     constructor(props) {
@@ -181,19 +181,26 @@ class App extends Component {
                                 path="/admin/cap-nhat-mon"
                                 element={<SubjectUpdate />}
                             />
-                            {/* Admin */}
-
                             {/* Teacher */}
                             <Route
                                 path="/teacher/tiep-nhan"
-                                element={<AddStudent />}
+                                element={<TiepNhanHs />}
                             />
                             <Route
                                 path="/teacher/lap-danh-sach"
                                 element={<LapDanhSachLop/>}
                             />
+                            {/* <Route
+                                path="/user/tra-cuu"
+                                element={<StudentSearch/>}
+                            /> */}
+                             <Route
+                                path="/teacher/tra-cuu"
+                                element={<TraCuu/>}
+                            />
+                            
+                            
 
-                            {/* Teacher */}
                         </Routes>
                     </div>
                 </div>

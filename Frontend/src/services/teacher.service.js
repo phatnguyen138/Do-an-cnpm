@@ -67,6 +67,20 @@ class Teacher {
             { headers: authHeader() },
         );
     }
+    TraCuuHs(className)
+    {
+        console.log("TraCuuHs", className)
+        return axios.post(
+            API_URL + "tra-cuu",
+            {
+                className
+            },
+            { headers: authHeader() },
+        ).then(function (response) {
+            const tracuu = JSON.stringify(response.data);
+            localStorage.setItem("TraCuu", tracuu);
+        },{ headers: authHeader() });
+    }
 
 
 
