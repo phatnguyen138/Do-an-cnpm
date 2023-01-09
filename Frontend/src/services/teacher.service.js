@@ -69,7 +69,7 @@ class Teacher {
     }
     TraCuuHs(className)
     {
-        console.log("TraCuuHs", className)
+        console.log("TraCuuHs:", className)
         return axios.post(
             API_URL + "tra-cuu",
             {
@@ -80,6 +80,16 @@ class Teacher {
             const tracuu = JSON.stringify(response.data);
             localStorage.setItem("TraCuu", tracuu);
         });
+    }
+    CapNhatDiem(className,term,subjectName)
+    {
+        console.log("Get Mark");
+        return axios
+            .post(API_URL + "cap-nhat-diem",{className,term,subjectName}, { headers: header })
+            .then(function (response) {
+                const classData = JSON.stringify(response.data);
+                localStorage.setItem("Mark", classData);
+            },{ headers: authHeader() });
     }
 
 

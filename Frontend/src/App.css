@@ -96,7 +96,29 @@ form * {
 .gridTiepNhanHs
 {
     display: grid;
-    grid-template-columns: 8% 30% 60% ;
+    grid-template-columns: 12% 10% 12% 15% 13% 5% 100%;
+}
+.gridnew
+{
+    display: grid;
+    grid-template-columns: 8% 10% 70%;
+}
+.margin-top
+{
+    margin-top: 30px;
+}
+.name
+{
+    width:360px;
+}
+.mark
+{
+    width:200px;
+}
+
+.slightleft
+{
+    margin-left: 10px;  
 }
 .marginleft
 {

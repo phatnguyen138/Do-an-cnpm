@@ -82,6 +82,7 @@ const getData = {
                 let gradeInfo = await Grade.findOne({ studentID: eachStudent.id, term: req.body.term, subjectID: subjectID});
 
                 let studentInfo = {
+                    id: eachStudent.id,
                     name: eachStudent.name,
                     fifteen: gradeInfo.fifteen,
                     midterm: gradeInfo.midterm,

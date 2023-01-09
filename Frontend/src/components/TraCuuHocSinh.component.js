@@ -3,18 +3,16 @@ import { useMemo, useEffect, useRef } from "react";
 import MaterialReactTable from "material-react-table";
 import Sidebar from "./TeacherSidebar";
 import Teacher from "../services/teacher.service";
-
-const data = JSON.parse(localStorage.getItem("student"));
-const classData = JSON.parse(localStorage.getItem("class"));
-const subjectData = JSON.parse(localStorage.getItem("subject"));
+console.log("Access to tra cuu hs");
 const initiate = JSON.parse(localStorage.getItem("class"))[0].nameClass;
+
+console.log("initiate", initiate);
 Teacher.TraCuuHs(initiate);
-var Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
-const TraCuuHs = () => {
-    // const navigate = useNavigate();
-    // const refreshPage = () => {
-    //     navigate(0);
-    // }
+const TraCuuHocSinh = () => {
+
+    const  classData = JSON.parse(localStorage.getItem("class"));
+
+    var Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
 
     const columns = useMemo(
         () => [
@@ -33,12 +31,12 @@ const TraCuuHs = () => {
         ],
         [],
     );
-    console.log("initiate", initiate)
+
     const [getData, setGetData] = useState(Tracuu);
     const [rowSelection, setRowSelection] = useState({});
     const [message, setMessage] = useState();
     const [nameClass, setClass] = useState();
-    console.log(nameClass);
+    // console.log(nameClass);
 
     useEffect(() => {
         //do something when the row selection changes...
@@ -48,16 +46,11 @@ const TraCuuHs = () => {
     // console.log(data);
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(nameClass)
-        // // localStorage.removeItem("TraCuu");
+        console.log(nameClass);
         Teacher.TraCuuHs(nameClass);
         Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
-        // getData = {}
+
         setGetData([...Tracuu]);
-        // window.location.reload(false);
-        // // window.location.reload(true);
-        // setMessage("Tra cuu thành công!");
-        // console.log("message:", message);
     };
 
     return (
@@ -72,7 +65,7 @@ const TraCuuHs = () => {
                 </div>
             </div>
 
-            <div className="gridTiepNhanHs">
+            <div className="gridnew">
                 <h6>Chọn lớp:</h6>
                 <select
                     id="nameClass"
@@ -120,4 +113,4 @@ const TraCuuHs = () => {
     );
 };
 
-export default TraCuuHs;
+export default TraCuuHocSinh;

@@ -27,8 +27,9 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import ClassUpdate from "./components/ClassUpdate.component";
 import LapDanhSachLop from "./components/LapDanhSachLop.component";
 import TiepNhanHs from "./components/TiepNhanHs.component";
-import StudentSearch from "./components/StudentSearch.component";
+// import StudentSearch from "./components/StudentSearch.component";
 import TraCuu from "./components/TraCuuHocSinh.component";
+import MarkUpdate from "./components/MarkUpdate.component"
 // console.log("user:", user);
 class App extends Component {
     constructor(props) {
@@ -197,9 +198,15 @@ class App extends Component {
                                 path="/user/tra-cuu"
                                 element={<StudentSearch/>}
                             /> */}
-                            <Route
+                            
+                            {showTeacherBoard &&(<Route
                                 path="/teacher/tra-cuu"
-                                element={<TraCuu />}
+                                element={<TraCuu/>}
+                                
+                            />)}
+                            <Route
+                                path="/teacher/cap-nhat-diem"
+                                element={<MarkUpdate />} 
                             />
                         </Routes>
                     </div>

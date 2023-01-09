@@ -27,6 +27,8 @@ const EditableRow = ({
           onChange={handleEditFormChange}
         ></input>
       </td>
+
+      
       <td>
         <button type="submit">Lưu</button>
         <button type="button" onClick={handleCancelClick}>

@@ -51,7 +51,7 @@ router.post(
 //     term: ,
 //     subjectName: ,
 // }
-router.get("/cap-nhat-diem", getData.getGradeSummary);
+router.post("/cap-nhat-diem", getData.getGradeSummary);
 
 //Màn hình cập nhật điểm nút CẬP NHẬT
 // {
@@ -72,7 +72,7 @@ router.get("/cap-nhat-diem", getData.getGradeSummary);
 //       }
 //     ]
 // }
-router.post("/cap-nhat-diem", teacherController.gradeUpdate);
+router.post("/cap-nhat-diem-1", teacherController.gradeUpdate);
 
 // Màn hình tổng kết môn
 // {

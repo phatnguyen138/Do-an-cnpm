@@ -65,7 +65,7 @@ class Login extends Component {
           }else if(loginData.role === "student"){
             this.props.router.navigate("/user/");
           }else{
-            this.props.router.navigate("/mod/");
+            this.props.router.navigate("/teacher/");
           }
           window.location.reload();
         },
