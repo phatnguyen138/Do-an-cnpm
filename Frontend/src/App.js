@@ -161,7 +161,10 @@ class App extends Component {
                             />
                             {/* <Route path="/profile" element={<Profile />} /> */}
                             <Route path="/user/" element={<BoardUser />} />
-                            <Route path="/teacher/" element={<BoardModerator />} />
+                            <Route
+                                path="/teacher/"
+                                element={<BoardModerator />}
+                            />
                             <Route path="/admin/" element={<BoardAdmin />} />
                             {/* Admin */}
                             <Route
@@ -188,19 +191,16 @@ class App extends Component {
                             />
                             <Route
                                 path="/teacher/lap-danh-sach"
-                                element={<LapDanhSachLop/>}
+                                element={<LapDanhSachLop />}
                             />
                             {/* <Route
                                 path="/user/tra-cuu"
                                 element={<StudentSearch/>}
                             /> */}
-                             <Route
+                            <Route
                                 path="/teacher/tra-cuu"
-                                element={<TraCuu/>}
+                                element={<TraCuu />}
                             />
-                            
-                            
-
                         </Routes>
                     </div>
                 </div>

@@ -34,6 +34,7 @@ const App = () => {
         ],
         [],
     );
+  
     const [rowSelection, setRowSelection] = useState({});
     const [message, setMessage] = useState();
     const [nameClass, setClass] = useState();

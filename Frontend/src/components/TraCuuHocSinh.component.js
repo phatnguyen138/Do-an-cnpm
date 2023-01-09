@@ -3,17 +3,18 @@ import { useMemo, useEffect, useRef } from "react";
 import MaterialReactTable from "material-react-table";
 import Sidebar from "./TeacherSidebar";
 import Teacher from "../services/teacher.service";
+
 const data = JSON.parse(localStorage.getItem("student"));
 const classData = JSON.parse(localStorage.getItem("class"));
 const subjectData = JSON.parse(localStorage.getItem("subject"));
-const Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
-
-const App = () => {
+const initiate = JSON.parse(localStorage.getItem("class"))[0].nameClass;
+Teacher.TraCuuHs(initiate);
+var Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
+const TraCuuHs = () => {
     // const navigate = useNavigate();
     // const refreshPage = () => {
     //     navigate(0);
     // }
-    Teacher.TraCuuHs("10A1");
 
     const columns = useMemo(
         () => [
@@ -32,30 +33,31 @@ const App = () => {
         ],
         [],
     );
+    console.log("initiate", initiate)
+    const [getData, setGetData] = useState(Tracuu);
     const [rowSelection, setRowSelection] = useState({});
     const [message, setMessage] = useState();
     const [nameClass, setClass] = useState();
     console.log(nameClass);
+
     useEffect(() => {
         //do something when the row selection changes...
         console.log({ rowSelection });
         console.log({ nameClass });
     }, [rowSelection, nameClass]);
-    const reloadPage = () => {
-        window.location.reload()
-      }
     // console.log(data);
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        localStorage.removeItem("TraCuu");
+        console.log(nameClass)
+        // // localStorage.removeItem("TraCuu");
         Teacher.TraCuuHs(nameClass);
         Tracuu = JSON.parse(localStorage.getItem("TraCuu"));
+        // getData = {}
+        setGetData([...Tracuu]);
         // window.location.reload(false);
-
-        setMessage("Tra cuu thành công!");
-        console.log("message:", message);
-        window.location.reload(true)
+        // // window.location.reload(true);
+        // setMessage("Tra cuu thành công!");
+        // console.log("message:", message);
     };
 
     return (
@@ -100,11 +102,12 @@ const App = () => {
 
             <MaterialReactTable
                 columns={columns}
-                data={Tracuu}
-                enableRowSelection
-                getRowId={(row) => row._id} //give each row a more useful id
-                onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
-                state={{ rowSelection }} //pass our managed row selection state to the table to use
+                data={getData}
+                // onChange={getData}
+                // enableRowSelection
+                //getRowId={(row) => row.name} //give each row a more useful id
+                // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
+                // state={{ rowSelection }} //pass our managed row selection state to the table to use
             />
             <br></br>
 
@@ -117,4 +120,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default TraCuuHs;

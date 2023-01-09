@@ -79,7 +79,7 @@ class Teacher {
         ).then(function (response) {
             const tracuu = JSON.stringify(response.data);
             localStorage.setItem("TraCuu", tracuu);
-        },{ headers: authHeader() });
+        });
     }
 
 
